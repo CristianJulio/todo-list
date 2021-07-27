@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { AiFillDelete, AiFillEdit, AiFillSave } from 'react-icons/ai'
-import { useDispatch } from 'react-redux';
-import { changeActivityState, deleteActivity, updateActivity } from './activitiySlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeActivityState, deleteActivity, filterActivities, selectfilteredActivities, updateActivity } from './activitiySlice';
+import { selectTermToFilter, setTermToFilter } from '../filter/filterSlice';
 
 const CardWrapper = styled.li`
   background: #FFF;
   border-left: 5px solid ${({state}) => state === 'Pending' ? '#D11149' : 'green'};
   border-radius: 3px;
-  // display: flex;
-  // justify-content: space-between;
-  // align-items: flex-start;
+  box-shadow: 0px 3px 18px 3px rgba(0,0,0,.1);
 `
 const Info = styled.div`
   display: grid;
@@ -23,15 +22,13 @@ const Title = styled.h3`
   font-weight: 400;
   font-size: 17px;
 `
-
 const Description = styled.p`
   line-height: 1.5;
   // padding: 5px 10px;
 `
-
 const ButtonsGroup = styled.div`
   width: 250px;
-  padding: 5px 10px;
+  padding: 0 0 15px 15px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 15px;
@@ -46,7 +43,6 @@ const Button = styled.button`
   color: #fff;
   text-align: center;
 `
-
 const StateButton = styled.button`
   all: unset;
   background: ${({bg}) => bg === 'Completed' ? 'green' : '#D11149'};
@@ -58,7 +54,6 @@ const StateButton = styled.button`
   text-align: center;
   width: 100px;
 `
-
 const TextArea = styled.textarea`
   min-height: 100px;
   max-width: 550px;
@@ -71,12 +66,18 @@ function Activity({ activity }) {
   const [editValue, setEditValue] = useState(desc)
 
   const dispatch = useDispatch()
+  const termToFilter = useSelector(selectTermToFilter)
+  const filteredActivities = useSelector(selectfilteredActivities)
   
   const handleStateClick = () => {
     dispatch(changeActivityState(id))
+    dispatch(filterActivities(termToFilter))
   }
   const handleDeleteClick = () => {
     dispatch(deleteActivity(id))
+    dispatch(filterActivities(termToFilter))
+
+    if(filteredActivities.length === 1) dispatch(setTermToFilter(''))
   }
   const handleEditClick = e => {
     setIsEditing(true)
@@ -84,6 +85,7 @@ function Activity({ activity }) {
   const handleSaveClick = () => {
     setIsEditing(false)
     dispatch(updateActivity({ id, editValue }))
+    dispatch(filterActivities(termToFilter))
   }
 
   const state = !completed ? 'Pending' : 'Completed'

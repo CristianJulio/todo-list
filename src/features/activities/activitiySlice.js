@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 export const activitySlice = createSlice({
   name: 'activity',
   initialState: {
-    activities: []
+    activities: [],
+    filteredActivities: []
   },
   reducers: {
     addActivity: (state, { payload }) => {
@@ -27,11 +28,26 @@ export const activitySlice = createSlice({
         ...oldObj,
         desc: editValue
       }
+    },
+    filterActivities: (state, { payload }) => {
+      if(payload) {
+        const filterd = state.activities.filter(act => act.desc.includes(payload))
+        state.filteredActivities = [...filterd]
+      } else {
+        state.filteredActivities = []
+      }
     }
   }
 })
 
 export const selectActivities = (state) => state.activity.activities
+export const selectfilteredActivities = (state) => state.activity.filteredActivities
 
-export const { addActivity, changeActivityState, deleteActivity, updateActivity } = activitySlice.actions
+export const {
+  addActivity,
+  changeActivityState,
+  deleteActivity,
+  updateActivity,
+  filterActivities,
+} = activitySlice.actions;
 export default activitySlice.reducer
