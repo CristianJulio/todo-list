@@ -1,8 +1,14 @@
 import React from 'react'
 
-function Activity() {
+function Activity({ activity }) {  
+  const { title, desc, id, completed } = activity
+  
   return (
-    <li>Actividad 1</li>
+    <li>
+      <h3>{title}</h3>
+      <p>{desc}</p>
+      <p>{completed === true ? 'Completed' : 'Pending' }</p>
+    </li>
   )
 }
 

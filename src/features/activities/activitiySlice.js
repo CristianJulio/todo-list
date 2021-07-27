@@ -12,5 +12,7 @@ export const activitySlice = createSlice({
   }
 })
 
+export const selectActivities = (state) => state.activity.activities
+
 export const { addActivity } = activitySlice.actions
 export default activitySlice.reducer
