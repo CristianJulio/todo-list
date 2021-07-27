@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { addActivity } from './activitiySlice';
+import { addActivity, updateActivity } from './activitiySlice';
 import styled from 'styled-components';
 
 const FormStyled = styled.form`
@@ -64,6 +64,11 @@ function AddActivityForm() {
 
     dispatch(addActivity(activityToAdd));
   };
+
+  const handleEditSubmit = (e) => {
+    e.preventDefault()
+    dispatch(updateActivity({ i }))
+  }
 
   return (
     <FormStyled onSubmit={handleSubmit}>

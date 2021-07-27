@@ -16,11 +16,22 @@ export const activitySlice = createSlice({
     },
     deleteActivity: (state, { payload }) => {
       state.activities = state.activities.filter(act => act.id !== payload)
+    },
+    updateActivity: (state, { payload }) => {
+      const { editValue, id } = payload
+      
+      const compareId = (activity) => activity.id === id
+      const index = state.activities.findIndex(compareId)
+      const oldObj = state.activities[index]
+      state.activities[index] = {
+        ...oldObj,
+        desc: editValue
+      }
     }
   }
 })
 
 export const selectActivities = (state) => state.activity.activities
 
-export const { addActivity, changeActivityState, deleteActivity } = activitySlice.actions
+export const { addActivity, changeActivityState, deleteActivity, updateActivity } = activitySlice.actions
 export default activitySlice.reducer

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
+import { AiFillDelete, AiFillEdit, AiFillSave } from 'react-icons/ai'
 import { useDispatch } from 'react-redux';
-import { changeActivityState, deleteActivity } from './activitiySlice';
+import { changeActivityState, deleteActivity, updateActivity } from './activitiySlice';
 
 const CardWrapper = styled.li`
   background: #FFF;
@@ -49,18 +49,26 @@ const Button = styled.button`
 
 const StateButton = styled.button`
   all: unset;
-  color: pruple;
-  cursor: pointer;
   background: ${({bg}) => bg === 'Completed' ? 'green' : '#D11149'};
-  padding: 5px 10px;
   border-radius: 3px;
   color: #FFF;
-  width: 100px;
+  color: pruple;
+  cursor: pointer;
+  padding: 5px 10px;
   text-align: center;
+  width: 100px;
+`
+
+const TextArea = styled.textarea`
+  min-height: 100px;
+  max-width: 550px;
+  min-width: 550px;
 `
 
 function Activity({ activity }) {
   const { title, desc, id, completed } = activity;
+  const [isEditing, setIsEditing] = useState(false)
+  const [editValue, setEditValue] = useState(desc)
 
   const dispatch = useDispatch()
   
@@ -70,6 +78,13 @@ function Activity({ activity }) {
   const handleDeleteClick = () => {
     dispatch(deleteActivity(id))
   }
+  const handleEditClick = e => {
+    setIsEditing(true)
+  }
+  const handleSaveClick = () => {
+    setIsEditing(false)
+    dispatch(updateActivity({ id, editValue }))
+  }
 
   const state = !completed ? 'Pending' : 'Completed'
 
@@ -77,10 +92,15 @@ function Activity({ activity }) {
     <CardWrapper state={state}>
       <Info>
         <Title>{title}</Title>
-        <Description>{desc}</Description>
+        {isEditing === false ? (
+          <Description>{desc}</Description>
+        ) : (
+          <TextArea value={editValue} onChange={(e) => setEditValue(e.target.value)}></TextArea>
+        )}
       </Info>
       <ButtonsGroup>
-        <Button color="#133C55"><AiFillEdit /></Button>
+        {isEditing === true && <Button color="#06D6A0" onClick={handleSaveClick}><AiFillSave /></Button>}
+        {isEditing === false && <Button color="#133C55" onClick={handleEditClick}><AiFillEdit /></Button>}
         <Button color="#D11149" onClick={handleDeleteClick}><AiFillDelete /></Button>
         <StateButton bg={state} onClick={handleStateClick}>{state}</StateButton>
       </ButtonsGroup>
