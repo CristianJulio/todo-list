@@ -1,10 +1,32 @@
 import React from 'react'
+import styled from 'styled-components'
+import AddActivityForm from '../activities/AddActivityForm'
+
+const HeaderStyled = styled.header`
+  // background-image: linear-gradient(to bottom right, #40798C, #1F363D); 
+  background-image: radial-gradient(circle, #40798C, #1F363D); 
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // flex-wrap: wrap;  
+  flex-direction: column;
+`
+
+const TitleHeader = styled.h1`
+  font-size: 52px;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 25px;
+`
 
 function Header() {
   return (
-    <header>
-      <h1>Pending Activities</h1>
-    </header>
+    <HeaderStyled>
+      <TitleHeader>Pending Activities</TitleHeader>
+      <AddActivityForm />
+    </HeaderStyled>
   )
 }
 
