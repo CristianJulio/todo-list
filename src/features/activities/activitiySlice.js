@@ -10,20 +10,17 @@ export const activitySlice = createSlice({
       state.activities.push(payload)
     },
     changeActivityState: (state, { payload }) => {
-      const array1 = [5, 12, 8, 130, 44];
-      const isLargeNumber = (element) => element > 13;
-      console.log(array1.findIndex(isLargeNumber));
-      // expected output: 3
-
       const compareId = (activity) => activity.id === payload
       const index = state.activities.findIndex(compareId)
-      state.activities[index].completed = !state.activities[index].completed
-      
+      state.activities[index].completed = !state.activities[index].completed 
+    },
+    deleteActivity: (state, { payload }) => {
+      state.activities = state.activities.filter(act => act.id !== payload)
     }
   }
 })
 
 export const selectActivities = (state) => state.activity.activities
 
-export const { addActivity, changeActivityState } = activitySlice.actions
+export const { addActivity, changeActivityState, deleteActivity } = activitySlice.actions
 export default activitySlice.reducer

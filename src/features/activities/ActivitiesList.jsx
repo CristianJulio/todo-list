@@ -11,6 +11,7 @@ const LisActivitiesListStyled = styled.div`
 const ListStyled = styled.ul`
   list-style: none;
   display: grid;
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 25px;
 `
 
