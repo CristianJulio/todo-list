@@ -6,9 +6,11 @@ export const activitySlice = createSlice({
     activities: []
   },
   reducers: {
-
+    addActivity: (state, { payload }) => {
+      state.activities.push(payload)
+    }
   }
 })
 
-export const {} = activitySlice.actions
+export const { addActivity } = activitySlice.actions
 export default activitySlice.reducer

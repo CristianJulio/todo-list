@@ -2,9 +2,12 @@ import React from 'react'
 import Activity from './Activity'
 
 function ActivitiesList() {  
+  const handleAddActivityClick = () => {
+
+  }
+  
   return (
     <div>
-      <button>Add Activity</button>
       <ul>
         <Activity />
       </ul>
