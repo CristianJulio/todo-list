@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { toast } from 'react-toastify'
 import { fetchCatFacts } from './catsApi'
+import { toast } from 'react-toastify'
 import { v4 as uuidv4 } from 'uuid'
 
 export const setActivitiesWithCatFacts = createAsyncThunk(
@@ -35,15 +35,10 @@ export const activitySlice = createSlice({
     },
     updateActivity: (state, { payload }) => {
       const { editValue, id } = payload
-
       const compareId = (activity) => activity.id === id
       const index = state.activities.findIndex(compareId)
       const oldObj = state.activities[index]
-      state.activities[index] = {
-        ...oldObj,
-        desc: editValue
-      }
-
+      state.activities[index] = { ...oldObj, desc: editValue }
       toast('Activity updated')
     },
     filterActivities: (state, { payload }) => {
@@ -64,12 +59,14 @@ export const activitySlice = createSlice({
       })
       .addCase(setActivitiesWithCatFacts.fulfilled, (state, { payload }) => {
         state.status = 'idle'
+
         const newActivities = payload.map((fact, index) => ({
           id: uuidv4(),
           completed: false,
           title: `Activity ${index + 1}`,
           desc: fact.fact
         }))
+
         state.activities = [...state.activities, ...newActivities]
         toast('Random activities added')
       })
@@ -86,4 +83,5 @@ export const {
   updateActivity,
   filterActivities
 } = activitySlice.actions
+
 export default activitySlice.reducer

@@ -3,29 +3,26 @@ import styled from 'styled-components'
 import AddActivityForm from '../activities/AddActivityForm'
 
 const HeaderStyled = styled.header`
-  background-image: linear-gradient(to bottom right, #FFC857, #E9724C); 
-  // background-image: radial-gradient(circle, #FFC857, #E9724C);
-  height: 300px;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  // flex-wrap: wrap;  
+  background-image: linear-gradient(to bottom right, #FFC857, #E9724C); 
+  display: flex;
   flex-direction: column;
+  height: 300px;
+  justify-content: center;
 `
-
 const TitleHeader = styled.h1`
-  font-size: 52px;
   color: #fff;
-  width: 100%;
-  text-align: center;
+  font-size: 52px;
   margin-bottom: 25px;
+  text-align: center;
+  width: 100%;
 
   @media screen and (min-width: 300px) and (max-width: 699px) {
     font-size: 32px;
   }
 `
 
-function Header () {
+const Header = () => {
   return (
     <HeaderStyled>
       <TitleHeader>Pending Activities</TitleHeader>

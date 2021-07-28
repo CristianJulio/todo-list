@@ -1,69 +1,64 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { v4 as uuidv4 } from 'uuid'
-import { addActivity, updateActivity } from './activitiySlice'
 import styled from 'styled-components'
+import { v4 as uuidv4 } from 'uuid'
+import { useDispatch } from 'react-redux'
+import { addActivity } from './activitiySlice'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const FormStyled = styled.form`
-  // padding: 25px 0;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
   align-items: center;
-  width: 450px;
+  display: flex;
+  flex-direction: column;
   height: 100px;
+  justify-content: space-between;
+  width: 450px;
 
   @media screen and (min-width: 300px) and (max-width: 699px) {
-    width: 300px;
     height: 150px;
+    width: 300px;
   }
 `
-
 const InputGroup = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
 
   @media screen and (min-width: 300px) and (max-width: 699px) {
-    height: 75px;
     flex-direction: column;
+    height: 75px;
   }
 `
-
 const Input = styled.input`
   all: unset;
   background: #fff;
-  padding: 5px 10px;
   border-radius: 3px;
-  // margin-right: 15px;
+  padding: 5px 10px;
 `
-
 const Button = styled.button`
   all: unset;
   background: #1f363d;
-  color: #fff;
-  padding: 10px;
   border-radius: 25px;
-  font-size: 15 px;
+  color: #fff;
   cursor: pointer;
-  width: 150px;
+  font-size: 15px;
+  padding: 10px;
   text-align: center;
-  text-transform: uppercase;
+  width: 150px;
 `
 
-function AddActivityForm () {
+const AddActivityForm = () => {
   const [data, setData] = useState({
     title: '',
     desc: ''
   })
+
   const { title, desc } = data
   const dispatch = useDispatch()
 
   const handleChange = ({ target }) => {
-    const value = target.value
     const name = target.name
+    const value = target.value
 
     setData((data) => ({
       ...data,
@@ -91,11 +86,6 @@ function AddActivityForm () {
     dispatch(addActivity(activityToAdd))
   }
 
-  const handleEditSubmit = (e) => {
-    e.preventDefault()
-    dispatch(updateActivity({ i }))
-  }
-
   return (
     <FormStyled onSubmit={handleSubmit}>
       <InputGroup>
@@ -117,7 +107,7 @@ function AddActivityForm () {
           onChange={handleChange}
         />
       </InputGroup>
-      <Button id='button'>Add activity</Button>
+      <Button>Add activity</Button>
       <ToastContainer position='top-left' autoClose={3000} hideProgressBar />
     </FormStyled>
   )

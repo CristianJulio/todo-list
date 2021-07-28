@@ -23,30 +23,28 @@ const Info = styled.div`
   padding: 15px;
 `
 const Title = styled.h3`
-  // padding: 5px 10px;
   color: grey;
-  font-weight: 400;
   font-size: 17px;
+  font-weight: 400;
 `
 const Description = styled.p`
   line-height: 1.5;
-  // padding: 5px 10px;
 `
 const ButtonsGroup = styled.div`
-  width: 250px;
-  padding: 0 0 15px 15px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   grid-gap: 15px;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0 0 15px 15px;
+  width: 250px;
 `
 const Button = styled.button`
   all: unset;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-size: 20px;
   background: ${({ color }) => color};
   border-radius: 3px;
   color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 5px 10px;
   text-align: center;
 `
 const StateButton = styled.button`
@@ -54,7 +52,6 @@ const StateButton = styled.button`
   background: ${({ bg }) => (bg === 'Completed' ? '#1F363D' : '#D11149')};
   border-radius: 3px;
   color: #fff;
-  color: pruple;
   cursor: pointer;
   padding: 5px 10px;
   text-align: center;
@@ -62,8 +59,8 @@ const StateButton = styled.button`
 `
 const TextArea = styled.textarea`
   all: unset;
-  // box-shadow: 0px 3px 18px 3px rgba(0,0,0,.2);
-  height: 30px;
+  height: 45px;
+  line-height: 1.5;
   max-width: 480px;
   min-width: 480px;
   padding: 5px 10px 5px 0;
@@ -79,12 +76,14 @@ const TextArea = styled.textarea`
   }
 `
 
-function Activity ({ activity }) {
+const Activity = ({ activity }) => {
   const { title, desc, id, completed } = activity
+
   const [isEditing, setIsEditing] = useState(false)
   const [editValue, setEditValue] = useState(desc)
 
   const dispatch = useDispatch()
+
   const termToFilter = useSelector(selectTermToFilter)
   const filteredActivities = useSelector(selectfilteredActivities)
 
@@ -113,9 +112,14 @@ function Activity ({ activity }) {
     <CardWrapper state={state}>
       <Info>
         <Title>{title}</Title>
-        {isEditing === false
-          ? (<Description>{desc}</Description>)
-          : (<TextArea value={editValue} onChange={(e) => setEditValue(e.target.value)} autoFocus={isEditing} />)}
+        {isEditing === false && <Description>{desc}</Description>}
+        {isEditing === true && (
+          <TextArea
+            value={editValue}
+            onChange={(e) => setEditValue(e.target.value)}
+            autoFocus={isEditing}
+          />
+        )}
       </Info>
       <ButtonsGroup>
         {isEditing === true && (

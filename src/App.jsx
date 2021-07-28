@@ -6,8 +6,8 @@ import Filter from './features/filter/Filter'
 import RandomActivities from './features/randomActivities/RandomActivities'
 
 const Wrapper = styled.div`
-  width: 1200px;
   margin: 0 auto;
+  width: 1200px;
 
   @media screen and (min-width: 700px) and (max-width: 1199px) {
     width: 700px;
@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   }
 `
 
-function App () {
+const App = () => {
   return (
     <>
       <Header />

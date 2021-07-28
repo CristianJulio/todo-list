@@ -1,19 +1,17 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { selectActivities, selectfilteredActivities } from './activitiySlice'
 import Activity from './Activity'
 import styled from 'styled-components'
+import { useSelector } from 'react-redux'
+import { selectActivities, selectfilteredActivities } from './activitiySlice'
 import { selectTermToFilter } from '../filter/filterSlice'
 
-const LisActivitiesListStyled = styled.div`
-  padding-bottom: 50px; 
-`
 const ListStyled = styled.ul`
-  list-style: none;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   grid-gap: 25px;
-  
+  grid-template-columns: repeat(2, 1fr);
+  list-style: none;
+  padding-bottom: 50px;
+
   @media screen and (min-width: 700px) and (max-width: 1199px) {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
@@ -23,14 +21,14 @@ const ListStyled = styled.ul`
   }
 `
 const Message = styled.p`
-  text-align: center;
-  padding: 50px;
-  font-weight: 400;
   color: #333;
   font-size: 20px;
+  font-weight: 400;
+  padding: 50px;
+  text-align: center;
 `
 
-function ActivitiesList () {
+const ActivitiesList = () => {
   const activities = useSelector(selectActivities)
   const filteredActivities = useSelector(selectfilteredActivities)
   const termToFilter = useSelector(selectTermToFilter)
@@ -41,13 +39,11 @@ function ActivitiesList () {
   const listToShow = filteredActivities.length === 0 ? activities : filteredActivities
 
   return (
-    <LisActivitiesListStyled>
-      <ListStyled>
-        {listToShow.map(a => (
-          <Activity key={a.id} activity={a} />
-        ))}
-      </ListStyled>
-    </LisActivitiesListStyled>
+    <ListStyled>
+      {listToShow.map((a) => (
+        <Activity key={a.id} activity={a} />
+      ))}
+    </ListStyled>
   )
 }
 
