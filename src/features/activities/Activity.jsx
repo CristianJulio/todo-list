@@ -10,8 +10,9 @@ import {
   updateActivity
 } from './activitiySlice'
 import { selectTermToFilter, setTermToFilter } from '../filter/filterSlice'
+import { useSpring, animated } from 'react-spring'
 
-const CardWrapper = styled.li`
+const CardWrapper = styled(animated.li)`
   background: #fff;
   border-left: 5px solid ${({ state }) => (state === 'Pending' ? '#D11149' : '#1F363D')};
   border-radius: 3px;
@@ -107,9 +108,17 @@ const Activity = ({ activity }) => {
   }
 
   const state = !completed ? 'Pending' : 'Completed'
+  const fadeIn = useSpring({
+    from: {
+      opacity: 0
+    },
+    to: {
+      opacity: 1
+    }
+  })
 
   return (
-    <CardWrapper state={state}>
+    <CardWrapper state={state} style={fadeIn}>
       <Info>
         <Title>{title}</Title>
         {isEditing === false && <Description>{desc}</Description>}

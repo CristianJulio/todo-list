@@ -12,6 +12,7 @@
     "react-dom": "^17.0.0",
     "react-icons": "^4.2.0",
     "react-redux": "^7.2.4",
+    "react-spring": "^9.2.4",
     "react-toastify": "^7.0.4",
     "styled-components": "^5.3.0",
     "uuid": "^8.3.2"

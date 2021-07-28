@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import AddActivityForm from '../activities/AddActivityForm'
+import { useSpring, animated } from 'react-spring'
 
 const HeaderStyled = styled.header`
   align-items: center;
@@ -10,7 +11,7 @@ const HeaderStyled = styled.header`
   height: 300px;
   justify-content: center;
 `
-const TitleHeader = styled.h1`
+const TitleHeader = styled(animated.h1)`
   color: #fff;
   font-size: 52px;
   margin-bottom: 25px;
@@ -23,9 +24,19 @@ const TitleHeader = styled.h1`
 `
 
 const Header = () => {
+  const pulse = useSpring({
+    from: {
+      transform: 'scale(1)'
+    },
+    to: [
+      { transform: 'scale(1.2' },
+      { transform: 'scale(1)' }
+    ]
+  })
+
   return (
     <HeaderStyled>
-      <TitleHeader>Pending Activities</TitleHeader>
+      <TitleHeader style={pulse}>Pending Activities</TitleHeader>
       <AddActivityForm />
     </HeaderStyled>
   )
