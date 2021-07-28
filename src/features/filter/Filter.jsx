@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { filterActivities, selectActivities, setActivitiesWithCatFacts } from '../activities/activitiySlice'
+import { filterActivities, selectActivities } from '../activities/activitiySlice'
 import { selectTermToFilter, setTermToFilter } from './filterSlice'
 
 const FilterStyled = styled.input`
@@ -17,7 +17,6 @@ const FilterStyled = styled.input`
 `
 
 function Filter () {
-  // const [valueToFilter, setValueToFilter] = useState('')
   const dispatch = useDispatch()
   const termToFilter = useSelector(selectTermToFilter)
   const activities = useSelector(selectActivities)
@@ -28,16 +27,11 @@ function Filter () {
     dispatch(filterActivities(value))
   }
 
-  const handleRandomClick = () => {
-    dispatch(setActivitiesWithCatFacts(123))
-  }
-
   if (!activities.length) return null
 
   return (
     <>
       <FilterStyled type='text' value={termToFilter} placeholder='Filter activities by description...' onChange={handleChange} />
-      <button onClick={handleRandomClick}>Random Fatcs</button>
     </>
   )
 }

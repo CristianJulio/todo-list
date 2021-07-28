@@ -48,7 +48,9 @@ export const activitySlice = createSlice({
     },
     filterActivities: (state, { payload }) => {
       if (payload) {
-        const filterd = state.activities.filter((act) => act.desc.includes(payload))
+        const filterd = state.activities.filter((act) =>
+          act.desc.toLowerCase().includes(payload.toLowerCase())
+        )
         state.filteredActivities = [...filterd]
       } else {
         state.filteredActivities = []
@@ -69,6 +71,7 @@ export const activitySlice = createSlice({
           desc: fact.fact
         }))
         state.activities = [...state.activities, ...newActivities]
+        toast('Random activities added')
       })
   }
 })

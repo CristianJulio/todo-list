@@ -1,8 +1,6 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import AddActivityForm from '../activities/AddActivityForm'
-import { selectIsCreating, selectIsEditing } from './headerSlice'
 
 const HeaderStyled = styled.header`
   background-image: linear-gradient(to bottom right, #FFC857, #E9724C); 
@@ -23,10 +21,7 @@ const TitleHeader = styled.h1`
   margin-bottom: 25px;
 `
 
-function Header() {
-  const isEditing = useSelector(selectIsEditing)
-  const isCreating = useSelector(selectIsCreating)
-  
+function Header () {
   return (
     <HeaderStyled>
       <TitleHeader>Pending Activities</TitleHeader>
