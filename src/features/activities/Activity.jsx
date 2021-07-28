@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react'
+import styled from 'styled-components'
 import { AiFillDelete, AiFillEdit, AiFillSave } from 'react-icons/ai'
-import { useDispatch, useSelector } from 'react-redux';
-import { changeActivityState, deleteActivity, filterActivities, selectfilteredActivities, updateActivity } from './activitiySlice';
-import { selectTermToFilter, setTermToFilter } from '../filter/filterSlice';
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  changeActivityState,
+  deleteActivity,
+  filterActivities,
+  selectfilteredActivities,
+  updateActivity
+} from './activitiySlice'
+import { selectTermToFilter, setTermToFilter } from '../filter/filterSlice'
 
 const CardWrapper = styled.li`
-  background: #FFF;
-  border-left: 5px solid ${({state}) => state === 'Pending' ? '#D11149' : 'green'};
+  background: #fff;
+  border-left: 5px solid ${({ state }) => (state === 'Pending' ? '#D11149' : '#1F363D')};
   border-radius: 3px;
-  box-shadow: 0px 3px 18px 3px rgba(0,0,0,.1);
+  box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.1);
 `
 const Info = styled.div`
   display: grid;
@@ -38,16 +44,16 @@ const Button = styled.button`
   padding: 5px 10px;
   cursor: pointer;
   font-size: 20px;
-  background: ${({color}) => color};
+  background: ${({ color }) => color};
   border-radius: 3px;
   color: #fff;
   text-align: center;
 `
 const StateButton = styled.button`
   all: unset;
-  background: ${({bg}) => bg === 'Completed' ? 'green' : '#D11149'};
+  background: ${({ bg }) => (bg === 'Completed' ? '#1F363D' : '#D11149')};
   border-radius: 3px;
-  color: #FFF;
+  color: #fff;
   color: pruple;
   cursor: pointer;
   padding: 5px 10px;
@@ -55,20 +61,23 @@ const StateButton = styled.button`
   width: 100px;
 `
 const TextArea = styled.textarea`
-  min-height: 100px;
-  max-width: 550px;
-  min-width: 550px;
+  all: unset;
+  // box-shadow: 0px 3px 18px 3px rgba(0,0,0,.2);
+  height: 20px;
+  max-width: 480px;
+  min-width: 480px;
+  padding: 5px 10px 5px 0;
 `
 
-function Activity({ activity }) {
-  const { title, desc, id, completed } = activity;
+function Activity ({ activity }) {
+  const { title, desc, id, completed } = activity
   const [isEditing, setIsEditing] = useState(false)
   const [editValue, setEditValue] = useState(desc)
 
   const dispatch = useDispatch()
   const termToFilter = useSelector(selectTermToFilter)
   const filteredActivities = useSelector(selectfilteredActivities)
-  
+
   const handleStateClick = () => {
     dispatch(changeActivityState(id))
     dispatch(filterActivities(termToFilter))
@@ -77,9 +86,9 @@ function Activity({ activity }) {
     dispatch(deleteActivity(id))
     dispatch(filterActivities(termToFilter))
 
-    if(filteredActivities.length === 1) dispatch(setTermToFilter(''))
+    if (filteredActivities.length === 1) dispatch(setTermToFilter(''))
   }
-  const handleEditClick = e => {
+  const handleEditClick = (e) => {
     setIsEditing(true)
   }
   const handleSaveClick = () => {
@@ -94,20 +103,30 @@ function Activity({ activity }) {
     <CardWrapper state={state}>
       <Info>
         <Title>{title}</Title>
-        {isEditing === false ? (
-          <Description>{desc}</Description>
-        ) : (
-          <TextArea value={editValue} onChange={(e) => setEditValue(e.target.value)}></TextArea>
-        )}
+        {isEditing === false
+          ? (<Description>{desc}</Description>)
+          : (<TextArea value={editValue} onChange={(e) => setEditValue(e.target.value)} autoFocus={isEditing} />)}
       </Info>
       <ButtonsGroup>
-        {isEditing === true && <Button color="#06D6A0" onClick={handleSaveClick}><AiFillSave /></Button>}
-        {isEditing === false && <Button color="#133C55" onClick={handleEditClick}><AiFillEdit /></Button>}
-        <Button color="#D11149" onClick={handleDeleteClick}><AiFillDelete /></Button>
-        <StateButton bg={state} onClick={handleStateClick}>{state}</StateButton>
+        {isEditing === true && (
+          <Button color='#06D6A0' onClick={handleSaveClick}>
+            <AiFillSave />
+          </Button>
+        )}
+        {isEditing === false && (
+          <Button color='#133C55' onClick={handleEditClick}>
+            <AiFillEdit />
+          </Button>
+        )}
+        <Button color='#D11149' onClick={handleDeleteClick}>
+          <AiFillDelete />
+        </Button>
+        <StateButton bg={state} onClick={handleStateClick}>
+          {state}
+        </StateButton>
       </ButtonsGroup>
     </CardWrapper>
-  );
+  )
 }
 
-export default Activity;
+export default Activity

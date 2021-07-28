@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
-import { filterActivities, selectActivities, selectfilteredActivities } from './activitiySlice'
+import { selectActivities, selectfilteredActivities } from './activitiySlice'
 import Activity from './Activity'
 import styled from 'styled-components'
 import { selectTermToFilter } from '../filter/filterSlice'
@@ -22,16 +22,16 @@ const Message = styled.p`
   font-size: 20px;
 `
 
-function ActivitiesList() {  
+function ActivitiesList () {
   const activities = useSelector(selectActivities)
   const filteredActivities = useSelector(selectfilteredActivities)
   const termToFilter = useSelector(selectTermToFilter)
 
-  if(!activities.length) return <Message>Add a new activity to start...</Message>
-  if(filteredActivities.length === 0 && termToFilter !== '') return <p>No results....</p>
-  
+  if (!activities.length) return <Message>Add a new activity to start...</Message>
+  if (filteredActivities.length === 0 && termToFilter !== '') return <Message>No results....</Message>
+
   const listToShow = filteredActivities.length === 0 ? activities : filteredActivities
-  
+
   return (
     <LisActivitiesListStyled>
       <ListStyled>

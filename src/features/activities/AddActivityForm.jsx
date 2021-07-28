@@ -3,30 +3,45 @@ import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { addActivity, updateActivity } from './activitiySlice';
 import styled from 'styled-components';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const FormStyled = styled.form`
-  padding: 25px 0;
+  // padding: 25px 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
+  width: 430px;
+  height: 100px;
+`;
+
+const InputGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 const Input = styled.input`
   all: unset;
-  background: #FFF;
+  background: #fff;
   padding: 5px 10px;
   border-radius: 3px;
-  margin-right: 15px;
+  // margin-right: 15px;
 `;
 
 const Button = styled.button`
   all: unset;
-  background: #40798C;
-  color: #FFF;
-  padding: 5px 10px;
-  border-radius: 3px;
+  background: #1f363d;
+  color: #fff;
+  padding: 10px;
+  border-radius: 25px;
+  font-size: 15 px;
   cursor: pointer;
-`
+  width: 150px;
+  text-align: center;
+  text-transform: uppercase;
+`;
 
 function AddActivityForm() {
   const [data, setData] = useState({
@@ -49,8 +64,9 @@ function AddActivityForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if(!title || !desc) return
-    
+    if (!title || !desc) return toast.error('You must fill all the fields');
+    if (desc.length > 200) return toast.error('fields must be less than 200 characters');
+
     const activityToAdd = {
       ...data,
       id: uuidv4(),
@@ -60,35 +76,39 @@ function AddActivityForm() {
     setData({
       title: '',
       desc: '',
-    })
+    });
 
     dispatch(addActivity(activityToAdd));
   };
 
   const handleEditSubmit = (e) => {
-    e.preventDefault()
-    dispatch(updateActivity({ i }))
-  }
+    e.preventDefault();
+    dispatch(updateActivity({ i }));
+  };
 
   return (
     <FormStyled onSubmit={handleSubmit}>
-      <Input
-        type="text"
-        id="title"
-        name="title"
-        value={title}
-        placeholder="Title"
-        onChange={handleChange}
-      />
-      <Input
-        type="text"
-        id="desc"
-        name="desc"
-        value={desc}
-        placeholder="Description"
-        onChange={handleChange}
-      />
-      <Button>Add activity</Button>
+      <InputGroup>
+        <Input
+          type="text"
+          id="title"
+          name="title"
+          value={title}
+          placeholder="Title"
+          onChange={handleChange}
+          autoFocus
+        />
+        <Input
+          type="text"
+          id="desc"
+          name="desc"
+          value={desc}
+          placeholder="Description"
+          onChange={handleChange}
+        />
+      </InputGroup>
+      <Button id="button">Add activity</Button>
+      <ToastContainer position="top-left" autoClose={3000} hideProgressBar />
     </FormStyled>
   );
 }

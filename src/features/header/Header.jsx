@@ -5,8 +5,8 @@ import AddActivityForm from '../activities/AddActivityForm'
 import { selectIsCreating, selectIsEditing } from './headerSlice'
 
 const HeaderStyled = styled.header`
-  // background-image: linear-gradient(to bottom right, #40798C, #1F363D); 
-  background-image: radial-gradient(circle, #40798C, #1F363D); 
+  background-image: linear-gradient(to bottom right, #FFC857, #E9724C); 
+  // background-image: radial-gradient(circle, #FFC857, #E9724C);
   height: 300px;
   display: flex;
   justify-content: center;
