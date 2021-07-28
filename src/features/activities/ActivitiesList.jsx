@@ -6,13 +6,21 @@ import styled from 'styled-components'
 import { selectTermToFilter } from '../filter/filterSlice'
 
 const LisActivitiesListStyled = styled.div`
-  padding-bottom: 50px;
+  padding-bottom: 50px; 
 `
 const ListStyled = styled.ul`
   list-style: none;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 25px;
+  
+  @media screen and (min-width: 700px) and (max-width: 1199px) {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  @media screen and (min-width: 300px) and (max-width: 699px) {
+    grid-template-columns: 1fr;
+  }
 `
 const Message = styled.p`
   text-align: center;

@@ -63,10 +63,20 @@ const StateButton = styled.button`
 const TextArea = styled.textarea`
   all: unset;
   // box-shadow: 0px 3px 18px 3px rgba(0,0,0,.2);
-  height: 20px;
+  height: 30px;
   max-width: 480px;
   min-width: 480px;
   padding: 5px 10px 5px 0;
+
+  @media screen and (min-width: 700px) and (max-width: 1199px) {
+    max-width: 300px;
+    min-width: 300px;
+  }
+  
+  @media screen and (min-width: 300px) and (max-width: 699px) {
+    max-width: 250px;
+    min-width: 250px;
+  }
 `
 
 function Activity ({ activity }) {

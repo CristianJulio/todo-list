@@ -19,6 +19,10 @@ const TitleHeader = styled.h1`
   width: 100%;
   text-align: center;
   margin-bottom: 25px;
+
+  @media screen and (min-width: 300px) and (max-width: 699px) {
+    font-size: 32px;
+  }
 `
 
 function Header () {

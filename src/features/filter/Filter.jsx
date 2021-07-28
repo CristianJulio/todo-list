@@ -14,6 +14,10 @@ const FilterStyled = styled.input`
   margin: 50px auto;
   padding: 5px 10px;
   width: 300px;
+
+  @media screen and (min-width: 300px) and (max-width: 699px) {
+    width: 250px;
+  }
 `
 
 function Filter () {

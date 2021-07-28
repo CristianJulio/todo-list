@@ -12,14 +12,24 @@ const FormStyled = styled.form`
   justify-content: space-between;
   flex-direction: column;
   align-items: center;
-  width: 430px;
+  width: 450px;
   height: 100px;
+
+  @media screen and (min-width: 300px) and (max-width: 699px) {
+    width: 300px;
+    height: 150px;
+  }
 `
 
 const InputGroup = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+
+  @media screen and (min-width: 300px) and (max-width: 699px) {
+    height: 75px;
+    flex-direction: column;
+  }
 `
 
 const Input = styled.input`
@@ -32,13 +42,15 @@ const Input = styled.input`
 
 const Button = styled.button`
   all: unset;
-  width: 150px;
-  text-align: center;
-  padding: 6px 15px;
-  border-radius: 4px;
-  cursor: pointer;
   background: #1f363d;
   color: #fff;
+  padding: 10px;
+  border-radius: 25px;
+  font-size: 15 px;
+  cursor: pointer;
+  width: 150px;
+  text-align: center;
+  text-transform: uppercase;
 `
 
 function AddActivityForm () {
